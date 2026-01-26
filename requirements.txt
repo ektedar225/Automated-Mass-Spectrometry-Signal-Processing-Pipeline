@@ -5,3 +5,4 @@ matplotlib
 pyopenms
 streamlit
 plotly
+altair<5
