@@ -3,6 +3,5 @@ scipy
 pandas
 matplotlib
 pyopenms
-streamlit
 plotly
-altair<5
+streamlit>=1.40.0
