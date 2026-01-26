@@ -7,12 +7,12 @@ An end-to-end Python pipeline for processing, analyzing, and visualizing mass sp
 This project provides a comprehensive solution for analyzing mass spectrometry (MS) data files. It handles data ingestion from mzML files, applies sophisticated signal processing algorithms, performs peak detection and analysis, and presents results through an interactive web interface powered by Streamlit.
 
 **Key Features:**
-- 📁 **mzML File Support**: Native parsing of mass spectrometry data files
-- 🔧 **Advanced Signal Processing**: Savitzky-Golay filtering, baseline correction, and noise reduction
-- 🎯 **Automated Peak Detection**: Identifies significant peaks with configurable thresholds
-- 📊 **Interactive Visualization**: Real-time plots and analysis dashboards
-- ⚡ **Batch Processing**: Process multiple files in one run
-- 🎨 **Professional UI**: Streamlit-based web interface with responsive design
+-  **mzML File Support**: Native parsing of mass spectrometry data files
+-  **Advanced Signal Processing**: Savitzky-Golay filtering, baseline correction, and noise reduction
+-  **Automated Peak Detection**: Identifies significant peaks with configurable thresholds
+-  **Interactive Visualization**: Real-time plots and analysis dashboards
+-  **Batch Processing**: Process multiple files in one run
+-  **Professional UI**: Streamlit-based web interface with responsive design
 
 ## Project Structure
 
