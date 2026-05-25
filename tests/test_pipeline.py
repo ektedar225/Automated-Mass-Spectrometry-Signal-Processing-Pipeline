@@ -24,8 +24,12 @@ class TestMassSpecPipeline(unittest.TestCase):
         noisy_signal = np.random.rand(100) * 10 
         
         # 2. Apply smoothing
-        processor = SignalProcessor(self.config)
-        smoothed_signal = processor.apply_smoothing(noisy_signal)
+        smoothed_signal, _, _ = SignalProcessor.apply_filters(
+            noisy_signal,
+            sg_window=self.config.SG_WINDOW_LENGTH,
+            sg_poly=self.config.SG_POLY_ORDER,
+            baseline_window=self.config.BASELINE_WINDOW
+        )
         
         # 3. Calculate variance (how "jagged" it is)
         variance_raw = np.std(noisy_signal)
@@ -45,8 +49,12 @@ class TestMassSpecPipeline(unittest.TestCase):
         intensity = np.zeros(100)
         intensity[50] = 100  # The spike
         
-        picker = PeakPicker(self.config)
-        peaks = picker.find_peaks(mz_axis, intensity)
+        peaks = PeakPicker.identify_peaks(
+            mz_axis,
+            intensity,
+            height=self.config.PEAK_HEIGHT_THRESHOLD,
+            distance=self.config.PEAK_DISTANCE
+        )
         
         # We expect exactly 1 peak found
         self.assertEqual(len(peaks), 1, "Expected exactly 1 peak.")
@@ -60,9 +68,13 @@ class TestMassSpecPipeline(unittest.TestCase):
         Math Check: Baseline correction should not result in negative intensity.
         """
         intensity = np.array([10, 10, 10, 50, 10, 10]) # Signal on a baseline of 10
-        processor = SignalProcessor(self.config)
         
-        corrected, baseline = processor.remove_baseline(intensity)
+        _, baseline, corrected = SignalProcessor.apply_filters(
+            intensity,
+            sg_window=self.config.SG_WINDOW_LENGTH,
+            sg_poly=self.config.SG_POLY_ORDER,
+            baseline_window=self.config.BASELINE_WINDOW
+        )
         
         # The lowest value should be near 0, not negative
         self.assertTrue(np.all(corrected >= 0), "Baseline correction created negative values!")
