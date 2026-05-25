@@ -1,7 +1,14 @@
 import os
 import streamlit as st
-from pyopenms import MSExperiment, MzMLFile
 import numpy as np
+
+# Try to import pyopenms, fall back to mock if not available
+try:
+    from pyopenms import MSExperiment, MzMLFile
+except (ImportError, Exception):
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from mock_pyopenms import MSExperiment, MzMLFile
 
 class MzMLLoader:
     @staticmethod
